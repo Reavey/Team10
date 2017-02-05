@@ -1,6 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 Minimum Viable Product
 
+=======
+>>>>>>> 704a6d6cb2eb567719e614ca5a7a3984b3762305
 =======
 >>>>>>> 704a6d6cb2eb567719e614ca5a7a3984b3762305
 Map Concepts
