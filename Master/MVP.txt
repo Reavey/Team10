@@ -1,0 +1,14 @@
+Minimum Viable Product
+
+Map Concepts
+- Outdoors
+- Hole in the middle
+- Cover
+
+Minimum Product
+1 Mode: Deathmatch
+1 Map: Should potentially do double duty
+4 Teams of 2
+1 Powerup
+Health system (3)
+Shrinking killzone
