@@ -30,6 +30,8 @@ public class MovementScriptMelee : MonoBehaviour {
     {
         playerRB.AddForce(Input.GetAxis("Horizontal") * runAcceleration, 0, Input.GetAxis("Vertical") * runAcceleration);
         transform.LookAt(transform.position + new Vector3(Input.GetAxis("Horizontal") * runAcceleration, 0, Input.GetAxis("Vertical") * runAcceleration));
+
+        transform.rotation = new Quaternion(this.transform.rotation.x, 180, this.transform.rotation.z, 0);
         if (transform.rotation != Quaternion.LookRotation(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"))))
         {
             print(Quaternion.LookRotation(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"))));

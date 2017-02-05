@@ -26,6 +26,7 @@ public class MovementScriptRanged : MonoBehaviour {
 
     void PlayerMovement()
     {
+        transform.rotation = new Quaternion(this.transform.rotation.x, 180, this.transform.rotation.z, 0);
         playerRB.AddForce(Input.GetAxis("RightX") * runAcceleration, 0, Input.GetAxis("RightY") * runAcceleration);
         transform.LookAt(transform.position + new Vector3(Input.GetAxis("RightX") * runAcceleration, 0, Input.GetAxis("RightY") * runAcceleration));
         if (transform.rotation != Quaternion.LookRotation(new Vector3(Input.GetAxis("RightX"), 0, Input.GetAxis("RightY"))))
