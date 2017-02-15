@@ -18,7 +18,7 @@ public class RangedCharacter : MonoBehaviour {
     MeleeCharacter[] meleeCharScript = new MeleeCharacter[8]; //to store all the characters' scripts
     RangedCharacter[] rangedCharScript = new RangedCharacter[8]; //storing all the characters' scripts
     bool isAlive;
-    GameObject hitObject;
+    public GameObject hitObject;
 
     // Use this for initialization
     void Start ()
@@ -61,9 +61,10 @@ public class RangedCharacter : MonoBehaviour {
     {
         if (Time.time > attackTime + attackSpeed)
         {
-            GameObject hitGameObject = Instantiate(hitObject, transform.position, transform.rotation) as GameObject;
-            Rigidbody rigidbody = hitGameObject.GetComponent<Rigidbody>();
-            rigidbody.AddForce(Vector3.forward * hitPower); //this throws it forward, we may want to throw it up as well, add another line if so
+            GameObject hitGameObject = Instantiate(hitObject, transform.position + (transform.forward * 2), transform.rotation);
+            Rigidbody hitObjectRB = hitGameObject.GetComponent<Rigidbody>();
+            hitObjectRB.AddForce(Vector3.forward * hitPower);
+            hitObjectRB.AddForce(Vector3.up * hitPower);
             attackTime = Time.time;
         }
     }

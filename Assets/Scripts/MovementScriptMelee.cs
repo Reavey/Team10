@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class MovementScriptMelee : MonoBehaviour {
-    
+public class MovementScriptMelee : MonoBehaviour
+{
+
     Rigidbody playerRB;
     public float runAcceleration;
     public float maxRunSpeed;
@@ -12,9 +13,10 @@ public class MovementScriptMelee : MonoBehaviour {
     bool grounded;
     float turnAmount;
     Quaternion targetRotation;
+    float angle;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         playerRB = this.GetComponent<Rigidbody>();
     }
@@ -22,21 +24,38 @@ public class MovementScriptMelee : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(playerRB.velocity.magnitude);
-            PlayerMovement();
+        //Debug.Log(playerRB.velocity.magnitude);
+        PlayerMovement();
+        PlayerRotation();
     }
 
     void PlayerMovement()
     {
-        playerRB.AddForce(Input.GetAxis("Horizontal") * runAcceleration, 0, Input.GetAxis("Vertical") * runAcceleration);
-        transform.LookAt(transform.position + new Vector3(Input.GetAxis("Horizontal") * runAcceleration, 0, Input.GetAxis("Vertical") * runAcceleration));
-
-        transform.rotation = new Quaternion(this.transform.rotation.x, 180, this.transform.rotation.z, 0);
-        if (transform.rotation != Quaternion.LookRotation(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"))))
+        if(Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0)
         {
-            print(Quaternion.LookRotation(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"))));
 
+            playerRB.AddForce(Input.GetAxis("Horizontal") * runAcceleration, 0, Input.GetAxis("Vertical") * runAcceleration);
+            //transform.LookAt(transform.position + new Vector3(Input.GetAxis("Horizontal") * runAcceleration, 0, Input.GetAxis("Vertical") * runAcceleration));
         }
+
+        if (Input.GetButtonDown("Jump") && grounded)
+        {
+            playerRB.AddForce(0, jumpHeight, 0);
+        }
+
+        if (!grounded)
+        {
+            //Insert Controls in air
+        }
+    }
+
+    void PlayerRotation()
+    {
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)  //stops the players rotation being re-set when there is no input from the stick
+        {
+            angle = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg; // gets the angle the stick is facing
+        }
+        transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0)); //sets the models angle to the angle the stick is facing
     }
 
     void OnCollisionStay()

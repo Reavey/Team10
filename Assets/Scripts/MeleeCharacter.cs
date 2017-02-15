@@ -35,7 +35,7 @@ public class MeleeCharacter : MonoBehaviour {
         teamMateRB = teamMate.GetComponent<Rigidbody>();
 
         //Stores all scripts for all players
-        for (int i = 0 ; i<1 ; i++)
+        for (int i = 0 ; i>8 ; i++)
         {
             meleeChar[i] = GameObject.FindWithTag("melee" + i); //finds the player
             meleeCharScript[i] = meleeChar[i].GetComponent<MeleeCharacter>(); //uses script
@@ -51,12 +51,9 @@ public class MeleeCharacter : MonoBehaviour {
     {
         if (isAlive) //player can't interact with anything if not alive
         {
-            if (rangedCharScript[teamNumber].health > 0) //in case team mate is not alive - doesn't calculate distance
-            {
-                distanceToTeamMate = Vector3.Distance(transform.position, teamMate.transform.position); //calculates the distance between the two players
-            }
+            distanceToTeamMate = Vector3.Distance(transform.position, teamMate.transform.position); //calculates the distance between the two players
 
-            if (Input.GetButtonDown("Fire1") && distanceToTeamMate < 1)
+            if (Input.GetKeyDown("k") && distanceToTeamMate < 3)
             {
                 pickedUp = true; 
             }
@@ -64,6 +61,7 @@ public class MeleeCharacter : MonoBehaviour {
             if (pickedUp)
             {
                 teamMate.transform.position = new Vector3(character.transform.position.x, character.transform.position.y + 2, character.transform.position.z); //sets position of team mate above you
+                teamMate.transform.rotation = character.transform.rotation;
             }
 
             if (Input.GetKeyDown("j") && pickedUp)

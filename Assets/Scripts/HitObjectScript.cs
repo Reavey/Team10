@@ -23,7 +23,7 @@ public class HitObjectScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (spawnTime + aliveTime > Time.time)
+        if (spawnTime + aliveTime < Time.time)
         {
             Destroy(this.gameObject);
         }
